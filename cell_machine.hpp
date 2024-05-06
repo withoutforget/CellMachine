@@ -37,19 +37,19 @@ public:
 
     auto get_cell(size_t x, size_t y) {
         if (!fits_in_size(x, y))
-            throw 0;
+            throw std::out_of_range{std::format("Out of range: cell x = {}, y = {} doesn't exist", x, y)};
         return m_grid[y * m_width + x];
     }
 
     auto get_cell(size_t x, size_t y) const {
         if (!fits_in_size(x, y))
-            throw 0;
+            throw std::out_of_range{ std::format("Out of range: cell x = {}, y = {} doesn't exist", x, y) };
         return m_grid[y * m_width + x];
     }
 
     auto get_row(size_t y) const {
         if (!fits_in_size(0, y))
-            throw 0;
+            throw std::out_of_range{ std::format("Out of range: row y = {} doesn't exist", y) };
         auto r = std::ranges::subrange(m_grid.cbegin() + y * m_width,
             m_grid.cbegin() + (y + 1) * m_width);
         return r;
